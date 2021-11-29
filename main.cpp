@@ -1,17 +1,19 @@
 #include "Enlace.h"
 
 int main (){
-
+    /*INICIALIZANDO COMPONENTES*/
     UART *prueba;
     prueba = new UART;
+    GPIO_init_board();
     prueba->UART_inicializacion();
-    int i;
-    char c[]={"Hola mundo"};
+    ADC_init();
+
+
     while(1){
-        prueba->UART_sPrintf(UART_1, c);
 
 
-        for(i=0;i<1000000;i++);
+
+
     }
 
 

@@ -28,6 +28,43 @@ static const uint32_t GPIO_PORT_TO_BASE[] =
     0x40004C81,
     0x40004D20
 };
+/*FUNCTION******************************************************************************
+*
+* Function Name    : HVAC_InicialiceIO
+* Returned Value   : None.
+* Comments         :
+*    Controla los preparativos para poder usar las entradas y salidas GPIO.
+*
+*END***********************************************************************************/
+void HVAC_InicialiceIO(void)
+{
+    // Para entradas y salidas ya definidas en la tarjeta.
+    GPIO_init_board();
+
+    // Modo de interrupción de los botones principales.
+    GPIO_interruptEdgeSelect(SETPOINT_PORT,BIT(SP_UP),   GPIO_HIGH_TO_LOW_TRANSITION);
+    GPIO_interruptEdgeSelect(SETPOINT_PORT,BIT(SP_DOWN), GPIO_HIGH_TO_LOW_TRANSITION);
+
+    // Preparativos de interrupción.
+    GPIO_clear_interrupt_flag(P1,B1);
+    GPIO_clear_interrupt_flag(P1,B4);
+    GPIO_enable_bit_interrupt(P1,B1);
+    GPIO_enable_bit_interrupt(P1,B4);
+
+    // Se necesitan más entradas, se usarán las siguientes:
+    GPIO_setBitIO(FAN_PORT, FAN_ON, ENTRADA);
+    GPIO_setBitIO(FAN_PORT, FAN_AUTO, ENTRADA);
+    GPIO_setBitIO(SYSTEM_PORT, SYSTEM_COOL, ENTRADA);
+    GPIO_setBitIO(SYSTEM_PORT, SYSTEM_OFF, ENTRADA);
+    GPIO_setBitIO(SYSTEM_PORT, SYSTEM_HEAT, ENTRADA);
+    GPIO_setBitIO(SETPOINT_PORT, SP_UP, ENTRADA);
+    GPIO_setBitIO(SETPOINT_PORT, SP_DOWN, ENTRADA);
+
+    /* Uso del módulo Interrupt para generar la interrupción general y registro de esta en una función
+    *  que se llame cuando la interrupción se active.                                                   */
+    Int_registerInterrupt(INT_PORT1, INT_SWI);
+    Int_enableInterrupt(INT_PORT1);
+}
 
 /*****************************************************************************
  * Function: GPIO_init
