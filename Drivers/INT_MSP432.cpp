@@ -140,8 +140,8 @@ static void IntDefaultHandler(void)
 #pragma data_alignment=1024
 static __no_init void (*g_pfnRAMVectoring[NUM_INTERRUPTS+1])(void) @ "VTABLE";
 #elif defined(__TI_COMPILER_VERSION__)
-#pragma DATA_ALIGN(g_pfnRAMVectoring, 1024)
-#pragma DATA_SECTION(g_pfnRAMVectoring, ".vtable")
+#pragma DATA_ALIGN(1024)
+#pragma DATA_SECTION(".vtable")
 void (*g_pfnRAMVectoring[NUM_INTERRUPTS + 1])(void);
 #else
 static __attribute__((section("vtable")))

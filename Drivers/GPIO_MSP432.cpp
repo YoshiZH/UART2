@@ -9,7 +9,7 @@
  // Updated:         11/2018
 
 #include "Enlace.h"     // Configuración del sistema.
-
+uint32_t i,b;
 
 /* Declaración del arreglo GPIO_PORT_TO_BASE
  * En el cual se encuentran las direcciones en donde comienzan
@@ -28,6 +28,27 @@ static const uint32_t GPIO_PORT_TO_BASE[] =
     0x40004C81,
     0x40004D20
 };
+
+void Func1(void){
+    i++;
+}
+
+void Func2(void){
+    b++;
+}
+
+
+void INT_SWI(void)
+{
+    GPIO_clear_interrupt_flag(P1,B1); // Limpia la bandera de la interrupción.
+    GPIO_clear_interrupt_flag(P1,B4); // Limpia la bandera de la interrupción.
+
+    if(!GPIO_getInputPinValue(SETPOINT_PORT,BIT(SP_UP)))
+        Func1();
+   else if(!GPIO_getInputPinValue(SETPOINT_PORT,BIT(SP_DOWN)))
+        Func2();
+    return;
+}
 /*FUNCTION******************************************************************************
 *
 * Function Name    : HVAC_InicialiceIO
