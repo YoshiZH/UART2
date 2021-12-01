@@ -105,6 +105,8 @@ void GPIO_init_board(void)
     GPIO_set_output_bit(P2,B1); // LED_RGB (verde)
     GPIO_set_output_bit(P2,B2); // LED_RGB (azul)
 
+    P1->OUT &= ~0x01;
+    P2->OUT &= ~0x07;
     // Para los switches de la tarjeta (2).
     GPIO_set_input_bit(P1,B1); // SW1
     GPIO_set_input_bit(P1,B4); // SW2

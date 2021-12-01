@@ -88,5 +88,5 @@ extern uint8_t GPIO_getInputPinValue(uint_fast8_t selectedPort, uint_fast16_t se
 extern void GPIO_setAsPeripheralModuleFunctionOutputPin(uint_fast8_t selectedPort, uint_fast16_t selectedPins, uint_fast8_t mode);
 /* Función para configurar la función de entrada de un pin. */
 extern void GPIO_setAsPeripheralModuleFunctionInputPin(uint_fast8_t selectedPort, uint_fast16_t selectedPins, uint_fast8_t mode);
-
+extern void HVAC_InicialiceIO(void);
 #endif /* GPIO_MSP432_H_ */

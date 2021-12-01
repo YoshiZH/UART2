@@ -71,5 +71,6 @@
 #define ITERATIONS_TO_PRINT 49
 /* Función de interrupción para botones de setpoint. */
 extern void INT_SWI(void);
-
+extern void Int_registerInterrupt(uint32_t interruptNumber,
+        void (*intHandler)(void));
 #endif /* ENLACE_H_ */
